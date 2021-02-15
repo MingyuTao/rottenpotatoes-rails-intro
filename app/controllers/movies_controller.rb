@@ -1,4 +1,6 @@
   class MoviesController < ApplicationController
+    helper_method :hilight
+    helper_method :chosen_rating?
 
   def show
     id = params[:id] # retrieve movie ID from URI route
@@ -7,8 +9,7 @@
   end
 
   def index
-    @sort = params[:sort]
-    @movies = Movie.all.order(@sort)
+    @movies = Movie.all
   end
 
   def new
