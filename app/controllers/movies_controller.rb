@@ -1,6 +1,6 @@
   class MoviesController < ApplicationController
-    helper_method :hilight
-    helper_method :chosen_rating?
+  helper_method :hilight
+  helper_method :chosen_rating?
 
   def show
     id = params[:id] # retrieve movie ID from URI route
@@ -9,7 +9,24 @@
   end
 
   def index
-    @movies = Movie.all
+    @all_ratings = ['G','PG','PG-13','R']
+    session[:ratings] = params[:ratings] unless params[:ratings].nil?
+    session[:order] = params[:order] unless params[:order].nil?
+
+    if (params[:ratings].nil? && !session[:ratings].nil?) || (params[:order].nil? && !session[:order].nil?)
+      redirect_to movies_path("ratings" => session[:ratings], "order" => session[:order])
+    elsif !params[:ratings].nil? || !params[:order].nil?
+      if !params[:ratings].nil?
+        array_ratings = params[:ratings].keys
+        return @movies = Movie.where(rating: array_ratings).order(session[:order])
+      else
+        return @movies = Movie.all.order(session[:order])
+      end
+    elsif !session[:ratings].nil? || !session[:order].nil?
+      redirect_to movies_path("ratings" => session[:ratings], "order" => session[:order])
+    else
+      return @movies = Movie.all
+    end
   end
 
   def new
@@ -46,4 +63,4 @@
   def movie_params
     params.require(:movie).permit(:title, :rating, :description, :release_date)
   end
-end
+  end
