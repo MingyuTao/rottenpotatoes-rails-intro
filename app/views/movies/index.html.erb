@@ -18,9 +18,12 @@
 <table class="table table-striped col-md-12" id="movies">
   <thead>
     <tr>
-      <th>Movie Title</th>
-      <th>Rating</th>
-      <th>Release Date</th>
+      <th>{:class => hilight('title')}
+        %a#title_header{:href => movies_path({:order => 'title'})} Movie TitleMovie Title</th>
+      <th>{:class => hilight('rating')}
+        %a{:href => movies_path({order:  'rating'})} RatingRating</th>
+      <th>th{:class => hilight('release_date')}
+        %a#release_date_header{:href => "#{movies_path}?order=release_date"} Release Date</th>
       <th>More Info</th>
     </tr>
   </thead>
