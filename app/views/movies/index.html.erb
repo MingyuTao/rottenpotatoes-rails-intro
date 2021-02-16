@@ -7,7 +7,7 @@
   <thead>
     <tr>
       <th>
-        <%=link_to"Movie Title",movies_path(sort:"title"),id:"title_header", :class => 'bg-warning' %>
+        <%=link_to"Movie Title",movies_path(sort:"title"),id:"title_header", :class => ('bg-warning' if @sort == 'title') %>
       </th>
       <th>
         Rating
