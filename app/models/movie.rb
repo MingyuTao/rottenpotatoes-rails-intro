@@ -1,5 +1,5 @@
 class Movie < ActiveRecord::Base
-    def Movie.ratings
-        Movie.select(:rating).distinct.inject([]){|a,m|a.pushing m.rating}
+    def self.ratings
+        Movie.select(:rating).distinct.inject([]){|a,m|a.push m.rating}
     end
 end
