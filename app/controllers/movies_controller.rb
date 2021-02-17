@@ -11,53 +11,7 @@ class MoviesController < ApplicationController
     @sort = params[:sort]
     @ratings = params[:ratings]
     @movies = Movie.all.order(@sort)
-    
     @all_ratings = Movie.all_ratings
-     redirect = false
-
-     logger.debug(session.inspect)
-
-         if params[:sort]
-          @sort = params[:sort]
-          session[:sort] = params[:sort]
-        elsif session[:sort]
-          @sort = session[:sort]
-          redirect = true
-        else
-          @sort_by = nil
-        end
-
-        if params[:commit] == "Refresh" and params[:rating].nil?
-          @ratings = nil
-          session[:ratings] = nil
-        elsif params[:ratings]
-          @ratings = params[:ratings]
-          session[:ratings] = params[:ratings]
-        elsif session[:ratings]
-          @ratings = session[:ratings]
-          redirect = true
-        else
-          @ratings = nil
-        end
-
-        if redirect
-          flash.keep
-          redirect_to movies_path :sort=>@sort, :ratings=>@ratings
-        end    
-
-        if @ratings and @sort
-          @movies = Movie.where(:rating => @ratings.keys).order(@sort)
-        elsif @ratings
-          @movies = Movie.where(:rating => @ratings.keys)
-        elsif @sort
-          @movies = Movie.order(@sort)
-        else 
-          @movies = Movie.all
-        end
-
-        if !@ratings
-          @ratings = Hash.new
-        end
 
   end
 
