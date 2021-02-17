@@ -17,11 +17,11 @@ class MoviesController < ApplicationController
 
      logger.debug(session.inspect)
 
-         if params[:sort_by]
-          @sort_by = params[:sort_by]
-          session[:sort_by] = params[:sort_by]
-        elsif session[:sort_by]
-          @sort_by = session[:sort_by]
+         if params[:sort]
+          @sort = params[:sort]
+          session[:sort] = params[:sort]
+        elsif session[:sort]
+          @sort = session[:sort]
           redirect = true
         else
           @sort_by = nil
@@ -42,15 +42,15 @@ class MoviesController < ApplicationController
 
         if redirect
           flash.keep
-          redirect_to movies_path :sort_by=>@sort_by, :ratings=>@ratings
+          redirect_to movies_path :sort=>@sort, :ratings=>@ratings
         end    
 
-        if @ratings and @sort_by
-          @movies = Movie.where(:rating => @ratings.keys).order(@sort_by)
+        if @ratings and @sort
+          @movies = Movie.where(:rating => @ratings.keys).order(@sort)
         elsif @ratings
           @movies = Movie.where(:rating => @ratings.keys)
-        elsif @sort_by
-          @movies = Movie.order(@sort_by)
+        elsif @sort
+          @movies = Movie.order(@sort)
         else 
           @movies = Movie.all
         end
