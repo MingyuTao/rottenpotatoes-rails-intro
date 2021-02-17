@@ -8,9 +8,14 @@ class MoviesController < ApplicationController
   
  
   def index
-    @all_ratings= Movie.ratings
+    @all_ratings= Movie.get.all_ratings
     @sort = params[:sort]
     @movies = Movie.all.order(@sort)
+    @selected_ratings = params[:ratings]
+    
+    if@selected_ratings.nil?
+      @selected_ratings = Hash[@all_ratings.map {|rating| [rating, rating]}]
+    end
   end
 
   def new
