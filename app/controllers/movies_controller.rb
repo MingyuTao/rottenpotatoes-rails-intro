@@ -12,6 +12,7 @@ class MoviesController < ApplicationController
     @ratings = params[:ratings]
     @movies = Movie.all.order(@sort)
     @all_ratings = Movie.all_ratings
+    @ratings_to_show = @all_ratings
 
   end
 
