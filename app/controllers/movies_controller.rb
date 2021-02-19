@@ -8,8 +8,14 @@ class MoviesController < ApplicationController
   
  
   def index
+    
+    @all_ratings = Movie.all_ratings
     @sort = params[:sort]
     @movies = Movie.all.order(@sort)
+    @ratings_to_show = @all_ratings
+    
+    
+    
   end
   def new
     # default: render 'new' template
