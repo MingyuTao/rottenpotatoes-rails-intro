@@ -8,13 +8,14 @@ class MoviesController < ApplicationController
   
  
   def index
-    @sort = params[:sort]
-    @ratings = params[:ratings]
     @all_ratings = Movie.all_ratings
-    params[:ratings].nil? ? @checked_ratings = [] : @checked_ratings = params[:ratings].keys
-    @movies = Movie.where(rating:@checked_ratings).order(@sort)
-    @ratings_to_show = @checked_ratings
-  end
+    @sort = params[:sort] || session[:sort]
+    session[:ratings] = session[:ratings] || @all_ratings
+    @checked_ratings = params[:ratings].keys || session[:ratings]
+    session[:sort] = @sort
+    session[:ratings] = @checked_ratings
+    @movies = Movie.where(rating:session[:ratings].keys).order(session[:sort])
+    @ratings_to_show = @session[:ratings]
 
   def new
     # default: render 'new' template
