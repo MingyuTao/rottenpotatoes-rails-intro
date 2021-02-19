@@ -15,7 +15,7 @@ class MoviesController < ApplicationController
     session[:sort] = @sort
     session[:ratings] = @checked_ratings
     @movies = Movie.where(rating:session[:ratings].keys).order(session[:sort])
-    @ratings_to_show = @session[:ratings]
+    @ratings_to_show = @checked_ratings
 
   def new
     # default: render 'new' template
