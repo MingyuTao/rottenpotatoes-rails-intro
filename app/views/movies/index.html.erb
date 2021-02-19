@@ -18,13 +18,13 @@
   <thead>
     <tr>
       <th>
-        <%=link_to"Movie Title",movies_path(sort:"title",ratings:@ratings),id:"title_header", :class => ('bg-warning' if @sort == 'title') %>
+        <%=link_to"Movie Title",movies_path(sort:"title"),id:"title_header", :class => ('bg-warning' if @sort == 'title') %>
       </th>
       <th>
         Rating
         </th>
       <th>
-        <%=link_to"Release Date",movies_path(sort:"release_date",ratings:@ratings),id:"release_date_header",:class => ('bg-warning' if @sort == 'release_date')%>
+        <%=link_to"Release Date",movies_path(sort:"release_date"),id:"release_date_header",:class => ('bg-warning' if @sort == 'release_date')%>
       </th>
       <th>More Info</th>
     </tr>
