@@ -10,11 +10,9 @@ class MoviesController < ApplicationController
   def index
     
     @all_ratings = Movie.all_ratings
-    @sort = params[:sort] || session[:sort]
     session[:ratings] = session[:ratings] || {'G'=>'','PG'=>'','PG-13'=>'','R'=>''}
-    @checked_ratings = params[:ratings] || session[:ratings]
-    session[:sort] = @sort
-    session[:ratings] = @checked_ratings
+    session[:sort] = params[:sort] || session[:sort]
+    session[:ratings] = params[:ratings] || session[:ratings]
     @movies = Movie.where(rating: session[:ratings].keys).order(session[:sort])
     @ratings_to_show =  session[:ratings]
     
